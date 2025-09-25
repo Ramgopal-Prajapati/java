@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Java Course | Ram Sir | DeviX Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: #1e1e1e;
+            --accent: #bb86fc;
+            --accent-secondary: #03dac6;
+            --text-primary: #e4e4e4;
+            --text-secondary: #a0a0a0;
+            --success: #00c853;
+            --warning: #ffab00;
+            --error: #cf6679;
+            --code-bg: #2d2d30;
+            --header-height: 70px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--darker-bg);
+            color: var(--text-primary);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            height: var(--header-height);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(18, 18, 18, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3') center/cover no-repeat;
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: var(--text-primary);
+            position: relative;
+            margin-top: var(--header-height);
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            color: var(--dark-bg);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(187, 134, 252, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(187, 134, 252, 0.5);
+        }
+        
+        /* Course Content */
+        .course-content {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            border-radius: 2px;
+        }
+        
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .topic-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent);
+        }
+        
+        .topic-header {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            color: var(--dark-bg);
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        
+        .topic-body {
+            padding: 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .topic-body h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .topic-body p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+        
+        .code-container {
+            background: var(--code-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .code-header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            color: var(--accent);
+        }
+        
+        .code-example {
+            padding: 1.2rem;
+            font-family: 'Fira Code', monospace;
+            color: #f8f8f2;
+            overflow-x: auto;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .code-example .keyword {
+            color: #ff79c6;
+        }
+        
+        .code-example .class {
+            color: #8be9fd;
+        }
+        
+        .code-example .string {
+            color: #f1fa8c;
+        }
+        
+        .code-example .comment {
+            color: #6272a4;
+        }
+        
+        .code-example .method {
+            color: #50fa7b;
+        }
+        
+        /* Tabs for course modules */
+        .modules-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .module-tab {
+            padding: 0.8rem 1.5rem;
+            background: var(--card-bg);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 500;
+        }
+        
+        .module-tab:hover {
+            border-color: var(--accent);
+        }
+        
+        .module-tab.active {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            color: var(--dark-bg);
+            font-weight: 600;
+        }
+        
+        /* Instructor Section */
+        .instructor {
+            background: var(--darker-bg);
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .instructor-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .instructor-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 30px rgba(187, 134, 252, 0.3);
+        }
+        
+        .instructor h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .instructor-title {
+            color: var(--accent-secondary);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 0;
+            background: var(--dark-bg);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            font-size: 5rem;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            opacity: 0.1;
+            color: var(--accent);
+            font-family: serif;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .rating {
+            color: var(--warning);
+            margin-top: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            color: var(--text-primary);
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            transform: translateY(-3px);
+        }
+        
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-nav a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            color: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(187, 134, 252, 0.4);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .topics-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background: var(--darker-bg);
+                padding: 1.5rem;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                gap: 1.5rem;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 6rem 0 3rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .hero {
+                padding: 5rem 0 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .module-tab {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>DeviX Solutions</span>
+            </div>
+            
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#course-content">Course Content</a></li>
+                    <li><a href="#instructor">Instructor</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Core Java Mastery Course</h1>
+            <p>Join Ram Sir from DeviX Solutions for a comprehensive journey into Java programming. Learn industry best practices, advanced concepts, and real-world application development.</p>
+            <a href="#course-content" class="btn">Explore Course Content</a>
+        </div>
+    </section>
+    
+    <!-- Course Content -->
+  <div class="topics-grid">
+
+    <!-- Topic 1 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>01. Introduction to Java</span>
+        </div>
+        <div class="topic-body">
+            <h3>Java Fundamentals</h3>
+            <p>Java is a class-based, object-oriented programming language that is platform-independent due to the JVM. Core components: <b>JDK</b>, <b>JRE</b>, and <b>JVM</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>HelloWorld.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">HelloWorld</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        System.out.println(<span class="string">"Hello, World!"</span>);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 2 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>02. Variables & Data Types</span>
+        </div>
+        <div class="topic-body">
+            <h3>Data Storage in Java</h3>
+            <p>Java supports <b>primitive types</b> (int, double, boolean, char) and <b>reference types</b> (String, arrays, objects). Supports type casting & conversions.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>VariablesExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">VariablesExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        <span class="comment">// Primitive types</span>
+        <span class="keyword">int</span> age = 25;
+        <span class="keyword">double</span> salary = 50000.75;
+        <span class="keyword">boolean</span> active = true;
+
+        <span class="comment">// Reference type</span>
+        String name = "John Doe";
+
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 3 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>03. Operators</span>
+        </div>
+        <div class="topic-body">
+            <h3>Working with Operators</h3>
+            <p>Operators perform operations on variables. Includes <b>arithmetic</b>, <b>logical</b>, <b>relational</b>, <b>assignment</b>, and <b>bitwise</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>OperatorsExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">OperatorsExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        int a = 10, b = 5;
+        System.out.println("Sum: " + (a + b));
+        System.out.println("Equal? " + (a == b));
+        System.out.println("Logical AND: " + (a > 0 && b > 0));
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 4 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>04. Control Statements</span>
+        </div>
+        <div class="topic-body">
+            <h3>Decision Making</h3>
+            <p>Control flow allows branching execution with <b>if-else</b>, <b>switch-case</b>, and <b>ternary operator</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>ControlFlowExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">ControlFlowExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        int num = 0;
+        if(num > 0) System.out.println("Positive");
+        else if(num < 0) System.out.println("Negative");
+        else System.out.println("Zero");
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 5 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>05. Loops</span>
+        </div>
+        <div class="topic-body">
+            <h3>Iteration in Java</h3>
+            <p>Repeats code using <b>for</b>, <b>while</b>, <b>do-while</b>, and <b>for-each</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>LoopsExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">LoopsExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        for(int i=1;i<=3;i++) System.out.println("For: "+i);
+        int j=1;
+        while(j<=3){ System.out.println("While: "+j); j++; }
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 6 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>06. Arrays</span>
+        </div>
+        <div class="topic-body">
+            <h3>Data Collections</h3>
+            <p>Arrays hold multiple values. Java supports <b>1D</b> and <b>2D arrays</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>ArraysExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">ArraysExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        int[] nums = {1,2,3};
+        for(int n: nums) System.out.println(n);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 7 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>07. Strings</span>
+        </div>
+        <div class="topic-body">
+            <h3>Immutable Text Handling</h3>
+            <p>Strings are immutable. Use <b>StringBuilder</b> for mutable operations.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>StringExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">StringExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        String s = "Java";
+        System.out.println(s.toUpperCase());
+        StringBuilder sb = new StringBuilder("Hello");
+        sb.append(" World");
+        System.out.println(sb);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 8 -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>08. Methods</span>
+        </div>
+        <div class="topic-body">
+            <h3>Reusable Code Blocks</h3>
+            <p>Methods define reusable logic. Supports <b>static</b>, <b>instance</b>, <b>overloading</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MethodsExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">MethodsExample</span> {
+    static int add(int a, int b){ return a+b; }
+    public static void main(String[] args) {
+        System.out.println(add(5,3));
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 9: Constructors -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>09. Constructors</span>
+        </div>
+        <div class="topic-body">
+            <h3>Special Methods for Initialization</h3>
+            <p>Constructors initialize objects. Can be <b>default</b>, <b>parameterized</b>, or <b>overloaded</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>ConstructorExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">ConstructorExample</span> {
+    String name;
+    ConstructorExample(String n){ name=n; }
+    public static void main(String[] args){
+        ConstructorExample obj = new ConstructorExample("Ram");
+        System.out.println("Name: "+obj.name);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 10: Exception Handling -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>10. Exception Handling</span>
+        </div>
+        <div class="topic-body">
+            <h3>Error Management</h3>
+            <p>Handle errors using <b>try-catch-finally</b>. Exceptions are <b>checked</b> or <b>unchecked</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>ExceptionExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">ExceptionExample</span> {
+    public static void main(String[] args){
+        try{
+            int x=5/0;
+        }catch(Exception e){
+            System.out.println("Error: "+e.getMessage());
+        }
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 11: Wrapper Classes & Autoboxing -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>11. Wrapper Classes & Autoboxing</span>
+        </div>
+        <div class="topic-body">
+            <h3>Object Representation of Primitives</h3>
+            <p>Each primitive has a wrapper (Integer, Double, etc). Autoboxing/unboxing allows automatic conversion.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>WrapperExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">WrapperExample</span> {
+    public static void main(String[] args){
+        int a=10;
+        Integer obj=a; <span class="comment">// autoboxing</span>
+        int b=obj;     <span class="comment">// unboxing</span>
+        System.out.println("Obj:"+obj+" b:"+b);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 12: Static & Final -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>12. Static & Final</span>
+        </div>
+        <div class="topic-body">
+            <h3>Class-Level and Constant Definitions</h3>
+            <p><b>Static</b> members belong to the class. <b>Final</b> makes constants, prevents overriding.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>StaticFinalExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">StaticFinalExample</span> {
+    static int counter=0;
+    final int id;
+    StaticFinalExample(int id){ this.id=id; counter++; }
+    public static void main(String[] args){
+        StaticFinalExample s1=new StaticFinalExample(1);
+        System.out.println("Objects created:"+counter);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 13: Packages & Access Modifiers -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>13. Packages & Access Modifiers</span>
+        </div>
+        <div class="topic-body">
+            <h3>Organizing Code</h3>
+            <p>Packages group related classes. Access modifiers: <b>public</b>, <b>protected</b>, <b>default</b>, <b>private</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>PackageExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">package</span> mypackage;
+public class PackageExample {
+    public static void main(String[] args){
+        System.out.println("Package Example");
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 14: Multithreading Basics -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>14. Multithreading Basics</span>
+        </div>
+        <div class="topic-body">
+            <h3>Concurrent Execution</h3>
+            <p>Multithreading allows multiple tasks to run simultaneously. Use <b>Thread</b> class or <b>Runnable</b> interface.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>ThreadExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">ThreadExample</span> <span class="keyword">extends</span> Thread {
+    public void run(){ System.out.println("Thread running..."); }
+    public static void main(String[] args){
+        ThreadExample t1=new ThreadExample();
+        t1.start();
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 15: Collections Framework -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>15. Collections Framework</span>
+        </div>
+        <div class="topic-body">
+            <h3>Dynamic Data Structures</h3>
+            <p>Java Collections (List, Set, Map) are resizable and powerful for data management.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CollectionsExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">import java.util.*;</span>
+public class CollectionsExample {
+    public static void main(String[] args){
+        List<String> list=new ArrayList<>();
+        list.add("Java"); list.add("Python");
+        System.out.println(list);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 16: Generics -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>16. Generics</span>
+        </div>
+        <div class="topic-body">
+            <h3>Type-Safe Programming</h3>
+            <p>Generics allow classes and methods to operate on objects of various types while providing compile-time safety.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>GenericsExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">public class</span> <span class="class">GenericsExample</span>&lt;T&gt; {
+    T value;
+    GenericsExample(T v){ value=v; }
+    public T getValue(){ return value; }
+    public static void main(String[] args){
+        GenericsExample&lt;String&gt; g=new GenericsExample&lt;&gt;("Hello");
+        System.out.println(g.getValue());
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 17: Java 8 Features -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>17. Java 8 Features</span>
+        </div>
+        <div class="topic-body">
+            <h3>Functional Programming</h3>
+            <p>Java 8 introduced <b>Lambdas</b>, <b>Streams</b>, and <b>Functional Interfaces</b>.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>LambdaExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">import java.util.*;</span>
+public class LambdaExample {
+    public static void main(String[] args){
+        List&lt;String&gt; list=Arrays.asList("a","b","c");
+        list.forEach(x -&gt; System.out.println(x));
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 18: File Handling -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>18. File Handling</span>
+        </div>
+        <div class="topic-body">
+            <h3>Working with Files</h3>
+            <p>Java provides <b>File</b>, <b>FileReader</b>, <b>BufferedReader</b>, <b>FileWriter</b> for file handling.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>FileExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">import java.io.*;</span>
+public class FileExample {
+    public static void main(String[] args)throws Exception{
+        FileWriter fw=new FileWriter("test.txt");
+        fw.write("Hello File");
+        fw.close();
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 19: Annotations -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>19. Annotations</span>
+        </div>
+        <div class="topic-body">
+            <h3>Metadata in Java</h3>
+            <p>Annotations provide metadata to classes, methods, fields. Common: @Override, @Deprecated.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>AnnotationExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">class</span> Parent { void show(){ System.out.println("Parent"); } }
+<span class="keyword">class</span> Child <span class="keyword">extends</span> Parent {
+    @Override
+    void show(){ System.out.println("Child"); }
+}
+public class AnnotationExample {
+    public static void main(String[] args){
+        new Child().show();
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic 20: Enums -->
+    <div class="topic-card" data-category="core">
+        <div class="topic-header">
+            <i class="fas fa-play-circle"></i>
+            <span>20. Enums</span>
+        </div>
+        <div class="topic-body">
+            <h3>Constants Grouping</h3>
+            <p>Enums define a fixed set of constants. Safer alternative to constants in classes.</p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>EnumExample.java</span>
+                    <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                </div>
+<pre class="code-example"><span class="keyword">enum</span> Day { MON, TUE, WED }
+public class EnumExample {
+    public static void main(String[] args){
+        Day d=Day.MON;
+        System.out.println("Day: "+d);
+    }
+}</pre>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    
+    <!-- Instructor Section -->
+    <section class="instructor" id="instructor">
+        <div class="container instructor-content">
+            <h2 class="section-title">Meet Your Instructor</h2>
+            <img src="me.jpg" alt="Ram Sir" class="instructor-img">
+            <h3>Ram Sharma</h3>
+            <p class="instructor-title">Senior Technical Trainer & Instructor</p>
+            <p>With over 2+ years of experience in Java development and training, Ram Sir has trained more than 100 students in Java technologies. He has worked with major tech companies and specializes in making complex concepts easy to understand.</p>
+            <p>At DeviX Solutions, Ram Sir is committed to providing the highest quality Java education with real-world examples and practical exercises. His teaching methodology focuses on hands-on learning and industry best practices.</p>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Students Say</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "This course completely changed my understanding of Java. Ram Sir's teaching method is exceptional! The real-world examples helped me grasp complex concepts easily."
+                    </div>
+                    <div class="testimonial-author">- Priya M., Software Developer</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The practical exercises and projects were invaluable. I landed a Java developer job at a top tech company just two months after completing this course."
+                    </div>
+                    <div class="testimonial-author">- Amit K., Java Developer</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Best investment in my career. The course content is comprehensive and well-structured for beginners to advanced learners. The dark theme website is easy on the eyes too!"
+                    </div>
+                    <div class="testimonial-author">- Sonia R., Backend Engineer</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container footer-content">
+            <h3>DeviX Solutions Java Mastery Course</h3>
+            
+            <div class="footer-nav">
+                <a href="#course-content">Course Content</a>
+                <a href="#instructor">Instructor</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <p class="copyright">© 2023 DeviX Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav ul').classList.remove('show');
+                }
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Copy code functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const codeElement = this.parentElement.nextElementSibling;
+                const textToCopy = codeElement.textContent;
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalHTML = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            });
+        });
+        
+        // Module tabs functionality
+        const moduleTabs = document.querySelectorAll('.module-tab');
+        
+        moduleTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                moduleTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Filter topics based on category
+                const category = tab.getAttribute('data-module');
+                const topicCards = document.querySelectorAll('.topic-card');
+                
+                topicCards.forEach(card => {
+                    if (category === 'core' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
